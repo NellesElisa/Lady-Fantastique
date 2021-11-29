@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block navbar %}
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-transparent">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
+                    aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div id="navbarCollapse" class="col-sm-4 mr-auto collapse navbar-collapse">
+                <ul id="padding" class="navbar-nav">
+                    <li class="nav-item active mr-3"><a class="nav-link" href="{{ path('home') }}">Accueil</a></li>
+                    <li class="nav-item active mx-3"><a class="nav-link" href="{{ path('products') }}">Produits</a></li>
+                    <li class="nav-item active mx-3"><a class="nav-link" id="contact" href="{{ path('contact') }}">Contact</a></li>
+                </ul>
+            </div>
+            <div id="navbarCollapse" class="col-sm-4 text-center collapse navbar-collapse">
+                <a href="{{ path('home') }}" class="site-logo py-2 my-1 mx-auto text-white nav-link ">Lady Fantastique</a>
+            </div>
+
+            <div id="navbarCollapse" class="col-sm-2 mt-2 collapse navbar-collapse">
+{#                {{ form(form) }}cela ne fonctionne pas#}
+            </div>
+
+            <div class="col-sm-2 navbar-item-custom">
+                {% if app.user %}
+                    <a href="{{ path('account') }}" class="float-md-none float-right mx-3"><i class="bi bi-person-circle text-white"></i></a>
+                {% else %}
+                    <a href="{{ path('app_login') }}" class="float-md-none float-right mx-3"><i class="bi bi-person-circle text-white"></i></a>
+                {% endif %}
+
+                {% set nbproduct = null %}
+                {% for product in cart %}
+                    {% set nbproduct = nbproduct + product.quantity %}
+                {% endfor %}
+                <a href="{{ path('cart')}}" class="float-md-none float-right mx-3"><i class="bi bi-basket3-fill text-white"></i>
+                    <badge class="badge rounded-circle badge-info text-center align-text-top">{{ nbproduct }}</badge>
+                </a>
+            </div>
+        </nav>
+    </header>
+{% endblock %}

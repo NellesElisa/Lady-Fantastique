@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Se connecter - La boutique francaise{% endblock %}
+
+{% block content %}
+<div class="block-small">
+    <form method="post">
+        {% if error %}
+            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+        {% endif %}
+
+        {% for message in app.flashes('notice') %}
+            <div class="alert alert-info">{{message}}</div>
+        {% endfor %}
+    
+        {% if app.user %}
+            <div class="mb-3">
+                {{ app.user.username }}, <a href="{{ path('app_logout') }}">Deconnexion</a>
+            </div>
+        {% endif %}
+    
+        <h1 class="h2 mb-3 text-center font-weight-normal">Merci de vous connecter</h1>
+        <label for="inputEmail">Votre Email</label>
+        <input type="email" value="{{ last_username }}" name="email" id="inputEmail" placeholder="votre adresse email" class="form-control" autocomplete="email" required autofocus><br>
+        <label for="inputPassword">Votre mot de passe</label>
+        <input type="password" name="password" id="inputPassword" placeholder="votre mot de passe" class="form-control" autocomplete="current-password" required>
+    
+        <input type="hidden" name="_csrf_token"
+               value="{{ csrf_token('authenticate') }}"
+        >
+        <p><a class="text-decoration-none" href="{{ path('reset_password')}}">Mot de passe oublié ?</a></p>
+        {#
+            Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
+            See https://symfony.com/doc/current/security/remember_me.html
+    
+            <div class="checkbox mb-3">
+                <label>
+                    <input type="checkbox" name="_remember_me"> Remember me
+                </label>
+            </div>
+        #}
+        <button id="login_submit" class="btn btn-sm btn-dark mt-3" type="submit">
+            Se connecter
+        </button>
+        <hr>
+        <p class="text-center ">Vous n'avez pas de compte ? <a class="text-decoration-none" href="{{ path('register')}}">Créer un compte</a></p>
+    </form>
+</div>
+
+{% endblock %}

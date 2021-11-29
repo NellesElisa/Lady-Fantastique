@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block carousel %}{% endblock %}
+
+{% block content %}
+    <section class="text-center px-4 py-4">
+        <h1 class="h2 text-uppercase mb-3">Les Catégories</h1>
+        <form id="searchCat" method="get" class="row">
+            {{ form_start(form) }}
+            <article class="col-sm-3 col-5 mx-auto">
+                <figure class="rounded image-zoom">
+                    <img class="cat img-fluid " src="assets/img/pierre.jpg" alt="">
+                    <h2 class="text-white position-absolute" style="bottom:30px; left: 30px">
+                        {{ form_widget(form.categories.1) }}
+                    </h2>
+                </figure>
+            </article>
+            <article class="col-sm-3 col-5 mx-auto">
+                <figure class="rounded image-zoom">
+                    <img class="cat img-fluid" src="assets/img/pierre.jpg" alt="">
+                    <h2 class="text-white position-absolute" style="bottom:30px; left: 30px">
+                        {{ form_widget(form.categories.2) }}
+                    </h2>
+                </figure>
+            </article>
+            <article class="col-sm-3 col-5 mx-auto">
+                <figure class="rounded image-zoom">
+                    <img class="cat img-fluid" src="assets/img/pierre.jpg" alt="">
+                    <h2 class="text-white position-absolute" style="bottom:30px; left: 30px">
+                        {{ form_widget(form.categories.3) }}
+                    </h2>
+                </figure>
+            </article>
+            <article class="col-sm-3 col-5 mx-auto">
+                <figure class="rounded image-zoom">
+                    <img class="cat img-fluid" src="assets/img/pierre.jpg" alt="">
+                    <h2 class="text-white position-absolute" style="bottom:30px; left: 30px">
+                        {{ form_widget(form.categories.4) }}
+                    </h2>
+                </figure>
+            </article>
+            <div class="mx-auto pt-2 px-3 mb-3">
+            {{ form_widget(form.rechercher) }}
+                {{ form_rest(form) }}
+                </div>
+            {{ form_end(form) }}
+        </form>
+    </section>
+
+<hr>
+    <section>
+        <h1 class="h2 text-center text-uppercase mt-5 ">Nos meilleures ventes</h1>
+        <p class="text-center ">Découvrez les articles les plus vendus</p>
+        <div class="row">
+            {% for product in products %}
+            <div class="col-sm-3 col-6 m-auto">
+            {% include "product/single_product.html.twig" %}
+        </div>
+        {% endfor %}
+        </div>
+    </section>
+{% endblock %}
+

@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nos produits - Lady Fantastique{% endblock %}
+
+{% block content %}
+    <div class="bg-white border py-3 mb-3">
+        <div class="row">
+            <div class="col-md-12 ml-3">
+                <a href="{{ path('home') }}" class="text-decoration-none"> Accueil</a>
+                <span class="mx-2 mb-0">/</span>
+                <a href="{{path('products')}}" class="text-decoration-none ">Tous les produits</a></div>
+        </div>
+    </div>
+
+<section class="row mt-5">
+    <div class="col-md-2 ">
+        {{ form_start(form) }}
+        {{ form_label(form.categories) }}
+        {{ form_widget(form.categories) }}
+        {{ form_end(form) }}
+        <a href="{{ path('products') }}" class="small">Effacer la sélection</a>
+    </div>
+
+<article class="col-md-9">
+    <h1>Nos produits</h1>
+        <div class="row product-container">
+            {% for product in products %}
+                <div class="col-md-4">
+                   {% include "product/single_product.html.twig" %}
+                </div>
+            {% endfor %}
+        </div>
+    </article>
+</section>
+{% endblock %}
+
