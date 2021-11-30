@@ -20,6 +20,10 @@ header{
     font-size: 1.3rem;
 }
 
+.navbar-nav{
+    padding-inline-start: 5px;
+}
+
 .form{
     width: 10em;
     margin-left: auto;
@@ -40,6 +44,10 @@ header{
     overflow: hidden;
 }
 
+#h2-cat{
+    bottom:10px;
+}
+
 .cat{
     transition: transform .5s;
 }
@@ -54,6 +62,14 @@ header{
 
 hr{
     width: 100%;
+}
+
+
+@media all and (max-width:500px){
+    #h2-cat{
+        font-size:20px;
+        bottom:10px;
+    }
 }
 
 /*produit*/
