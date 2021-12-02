@@ -9,7 +9,7 @@ class UserCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string
     {
-        return User::class;// changer le nom des classes en francais pour les utilisateurs 
+        return User::class;
     }
 
     /*

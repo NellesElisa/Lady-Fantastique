@@ -13,19 +13,19 @@
     </div>
 
 <section class="row mt-5">
-    <div class="col-md-2">
-        {{ form_start(form) }}
-        {{ form_label(form.categories) }}
-        {{ form_widget(form.categories) }}
-        {{ form_end(form) }}
+    <article class="col-md-3">
+        <div class="form-check">
+            {{ form_start(form) }}
+            {{ form_end(form) }}
         <a href="{{ path('products') }}" class="small">Effacer la sélection</a>
-    </div>
+        </div>
+    </article>
 
 <article class="col-md-9">
     <h1>Nos produits</h1>
         <div class="row product-container">
             {% for product in products %}
-                <div class="col-lg-4">
+                <div class="col-lg-4 col-4">
                    {% include "product/single_product.html.twig" %}
                 </div>
             {% endfor %}

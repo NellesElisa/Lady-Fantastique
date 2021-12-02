@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Classe\Cart;
 use App\Classe\Search;
 use App\Entity\Product;
 use App\Form\SearchCatType;
@@ -30,7 +31,7 @@ class ProductController extends AbstractController
         $products = $this->entityManager->getRepository(Product::class)->findAll();
 
         $search = new Search();
-        $form = $this->createForm(SearchCatType::class,$search);
+        $form = $this->createForm(SearchType::class,$search);
 
         $form->handleRequest($request);
 
@@ -53,17 +54,35 @@ class ProductController extends AbstractController
        $product = $this->entityManager->getRepository(Product::class)->findOneBy(array('slug' => $slug));
        $products =$this->entityManager->getRepository(Product::class)->findByIsBest(1);
 
-
        if(!$product){
            return $this->redirectToRoute('products');
+       }
+
+       if($product->getStock() == null){
+           return $this->redirectToRoute('rupture',array('slug'=>$slug));
        }
 
        return $this->render('product/show.html.twig',[
            'product' => $product,
            'slug'=> $slug,
            'products'=>$products,
-
        ]);
+   }
+
+
+    /**
+     * @Route("/produit/{slug}/rupture", name="rupture")
+     */
+   public function stock($slug){
+       $product = $this->entityManager->getRepository(Product::class)->findOneBy(array('slug' => $slug));
+       $products =$this->entityManager->getRepository(Product::class)->findByIsBest(1);
+
+       return $this->render('product/rupture.html.twig',[
+           'product' => $product,
+           'slug'=> $slug,
+           'products'=>$products,
+       ]);
+
    }
 
 }

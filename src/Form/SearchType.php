@@ -20,11 +20,31 @@ class SearchType extends AbstractType
     {
         $builder
             ->add('string',TextType::class , [
-                'label'=> false,
+                'label'=>false,
                 'required' => false,
                 'attr'=>[
-                    'placeholder'=>'Rechercher',
-                    'class'=>'row w-auto mx-auto'
+                    'placeholder'=>'Agate',
+                    'value'=>'',
+                    'class'=>'mb-2 pr-3'
+                ]
+            ])
+            ->add('rechecherN',SubmitType::class, [
+                'label'=>'Rechercher',
+                'attr'=>[
+                    'class'=>'btn btn-info btn-sm'
+                ]
+            ])
+            ->add('categories',EntityType::class , [
+                'label' => false,
+                'required' => false,
+                'class' => Category::class,
+                'multiple' => true,
+                'expanded' => true,
+            ])
+            ->add('rechercherC',SubmitType::class, [
+                'label'=>'trouver par catégories',
+                'attr'=>[
+                    'class'=>'btn btn-info btn-sm'
                 ]
             ]);
     }

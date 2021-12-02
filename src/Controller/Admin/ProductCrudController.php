@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Product;
+use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\MoneyField;
@@ -16,25 +17,26 @@ class ProductCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string
     {
-        return Product::class;// changer le nom des classes en francais pour les utilisateurs 
+        return Product::class;
     }
    
     public function configureFields(string $pageName): iterable
     {
         return [
-            TextField::new('name'),
+            TextField::new('name','Nom'),
             SlugField::new('slug')->setTargetFieldName('name'),
-            ImageField::new('illustration')
+            ImageField::new('illustration','Image')
                 ->setBasePath('uploads/')
                 ->setUploadDir('public/uploads/')
                 ->setUploadedFileNamePattern('[randomhash].[extention]')
                 ->setRequired(false),
                
-            TextField::new('subtitle'),
-            TextareaField::new('description'),
-            BooleanField::new('isBest'),
-            MoneyField::new('price')->setCurrency('EUR'),
-            AssociationField::new('category')
+            TextField::new('subtitle','Caractéristique'),
+            TextareaField::new('description','Description'),
+            BooleanField::new('isBest','A la une'),
+            IntegerField::new('stock','Stock'),
+            MoneyField::new('price','Prix')->setCurrency('EUR'),
+            AssociationField::new('category','Catégories')
             
         ];
     }

@@ -19,16 +19,11 @@
                 </ul>
             </div>
 
-            <div class="col-lg-4 text-center">
-                <a href="{{ path('home') }}" class="site-logo py-2 my-1 mx-auto text-white nav-link ">Lady Fantastique</a>
+            <div class="col-lg-4 my-2 text-center">
+                <a href="{{ path('home') }}" class="site-logo py-2 mx-auto text-white nav-link ">Lady Fantastique</a>
             </div>
 
-            <div id="navbarCollapse" class="col-lg-2 mt-2 navbar-collapse">
-                {{ form(form) }}
-                {# cela ne fonctionne pas #}
-            </div>
-
-                <ul class="col-lg-2 nav navbar-nav justify-content-center">
+                <ul class="col-lg-4 nav navbar-nav justify-content-center">
                     {% if app.user %}
                         <a href="{{ path('account') }}" class="nav-item float-md-none float-right mx-4">
                             <span class="bi bi-person-circle text-white"></span></a>
