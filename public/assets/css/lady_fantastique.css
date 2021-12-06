@@ -59,18 +59,53 @@ input[type="checkbox"].categories {
 }
 
 input[type="checkbox"].categories + label {
-    background-color: #138496;
     width: 100%;
     padding: 100px 0;
     border-radius: 20px;
-    box-shadow: 10px 12px 15px rgba(0, 0, 0, 0.77);
+    box-shadow: 10px 12px 15px #464646;
+    animation: gradientR .2s forwards;
 }
 
 input[type="checkbox"].categories:checked + label {
-    box-shadow: 0 0 0 transparent;
-    border: 7px solid #464646;
+    box-shadow: inset 10px 12px 15px #464646;
+    animation: gradient .2s forwards;
 }
 
+@keyframes gradient {
+    0% {
+        background: radial-gradient(circle at center, rgba(23, 162, 184, 0) 0%, #464646 0%, #464646 100%);
+    }
+    25% {
+        background: radial-gradient(circle at center, rgba(23, 162, 184, 0.3) 24%, #464646 25%, #464646 100%);
+    }
+    50% {
+        background: radial-gradient(circle at center, rgba(23, 162, 184, 0.5) 49%, #464646 50%, #464646 100%);
+    }
+    75% {
+        background: radial-gradient(circle at center, rgba(23, 162, 184, 0.8) 74%, #464646 75%, #464646 100%);
+    }
+    100% {
+        background: radial-gradient(circle at center, #17a2b8 99%, #464646 100%, #464646 100%);
+    }
+}
+
+@keyframes gradientR {
+    100% {
+        background: radial-gradient(circle at center, rgba(23, 162, 184, 0) 0%, #464646 0%, #464646 100%);
+    }
+    75% {
+        background: radial-gradient(circle at center, rgba(23, 162, 184, 0.3) 24%, #464646 25%, #464646 100%);
+    }
+    50% {
+        background: radial-gradient(circle at center, rgba(23, 162, 184, 0.5) 49%, #464646 50%, #464646 100%);
+    }
+    25% {
+        background: radial-gradient(circle at center, rgba(23, 162, 184, 0.8) 74%, #464646 75%, #464646 100%);
+    }
+    0% {
+        background: radial-gradient(circle at center, #17a2b8 99%, #464646 100%, #464646 100%);
+    }
+}
 
 .btn-dark{
     font-size: 18px;

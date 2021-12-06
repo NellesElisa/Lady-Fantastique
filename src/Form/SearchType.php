@@ -23,7 +23,7 @@ class SearchType extends AbstractType
                 'label'=>false,
                 'required' => false,
                 'attr'=>[
-                    'placeholder'=>'Agate',
+                    'placeholder'=>'agate...',
                     'value'=>'',
                     'class'=>'mb-2 pr-3'
                 ]
