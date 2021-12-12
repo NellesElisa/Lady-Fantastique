@@ -10,24 +10,24 @@
                 <fieldset class="form-group">
                     <div id="categories" class="row">
 
-                        <div class="form-check col-lg-3 col-6 mx-auto ">
+                        <div class="form-check col-lg-3 col-6 m-auto ">
                             <input type="checkbox" id="categories_1" name="categories[]" class="categories form-check-input" value="1">
-                            <label class="form-check-label text-white" for="categories_1">Bracelets</label>
+                            <label class="labelname form-check-label text-white" for="categories_1">Bracelets</label>
                         </div>
 
-                        <div class="form-check col-lg-3 col-6 mx-auto ">
+                        <div class="form-check col-lg-3 col-6 m-auto ">
                             <input type="checkbox" id="categories_2" name="categories[]" class="categories form-check-input" value="2">
-                            <label class="form-check-label text-white" for="categories_2">Minéreaux</label>
+                            <label class="labelname form-check-label text-white" for="categories_2">Minéreaux</label>
                         </div>
 
-                        <div class="form-check col-lg-3 col-6 mx-auto ">
+                        <div class="form-check col-lg-3 col-6 m-auto ">
                             <input type="checkbox" id="categories_3" name="categories[]" class="categories form-check-input" value="3">
-                            <label class="form-check-label text-white" for="categories_3">Colliers</label>
+                            <label class="labelname form-check-label text-white" for="categories_3">Colliers</label>
                         </div>
 
-                        <div class="form-check col-lg-3 col-6 mx-auto ">
+                        <div class="form-check col-lg-3 col-6 m-auto ">
                             <input type="checkbox" id="categories_4" name="categories[]" class="categories form-check-input" value="4">
-                            <label class="form-check-label text-white " for="categories_4">Objets</label>
+                            <label class="labelname form-check-label text-white " for="categories_4">Objets</label>
                         </div>
 
                     </div>
@@ -35,48 +35,6 @@
                 {{ form_widget(form.rechercher) }}
                 {{ form_widget(form._token) }}
         </form>
-
-
-        {#       #}
-{#            {{ form_start(form) }}#}
-{#            <article class="col-lg-3 col-6 mx-auto">#}
-{#                <figure class="position-relative rounded image-zoom">#}
-{#                    <img class="cat img-fluid " src="assets/img/pierre.jpg" alt="">#}
-{#                    <h2 id="h2-cat" class="text-white position-absolute">#}
-{#                        {{ form_widget(form.categories.1) }}#}
-{#                    </h2>#}
-{#                </figure>#}
-{#            </article>#}
-{#            <article class="col-lg-3 col-6 mx-auto">#}
-{#                <figure class="position-relative rounded image-zoom">#}
-{#                    <img class="cat img-fluid" src="assets/img/pierre.jpg" alt="">#}
-{#                    <h2 id="h2-cat" class="text-white position-absolute">#}
-{#                        {{ form_widget(form.categories.2) }}#}
-{#                    </h2>#}
-{#                </figure>#}
-{#            </article>#}
-{#            <article class="col-lg-3 col-6 mx-auto">#}
-{#                <figure class="position-relative rounded image-zoom">#}
-{#                    <img class="cat img-fluid" src="assets/img/pierre.jpg" alt="">#}
-{#                    <h2 id="h2-cat" class="text-white position-absolute">#}
-{#                        {{ form_widget(form.categories.3) }}#}
-{#                    </h2>#}
-{#                </figure>#}
-{#            </article>#}
-{#            <article class="col-lg-3 col-6 mx-auto">#}
-{#                <figure class="position-relative rounded image-zoom">#}
-{#                    <img class="cat img-fluid" src="assets/img/pierre.jpg" alt="">#}
-{#                    <h2 id="h2-cat" class="text-white position-absolute">#}
-{#                        {{ form_widget(form.categories.4) }}#}
-{#                    </h2>#}
-{#                </figure>#}
-{#            </article>#}
-{#            <div class="mx-auto pt-2 px-3 mb-3">#}
-{#            {{ form_widget(form.rechercher) }}#}
-{#                {{ form_rest(form) }}#}
-{#                </div>#}
-{#            {{ form_end(form) }}#}
-{#       #}
     </section>
 
 <hr>

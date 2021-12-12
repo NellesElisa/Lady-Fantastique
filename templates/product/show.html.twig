@@ -5,10 +5,10 @@
 
 {% block content %}
     <div class="border border-dark rounded py-3">
-        <div class="row">
             <div class="col-md-12">
-                <a href="{{ path('products') }}"> Retour </a> <span class="mx-2 mb-0">/</span> <strong class="text-black">{{ product.name }}</strong></div>
-        </div>
+                <a href="{{ path('products') }}"> Retour </a>
+                <span class="mx-2 mb-0">/</span> <strong class="text-black">{{ product.name }}</strong>
+            </div>
     </div>
 
     <div class="row">
@@ -22,7 +22,13 @@
             <hr>
             <p class="product-description">{{product.description}}</p>
             <hr>
-                    <a href="{{ path('add_to_cart', { 'id' : product.id }) }}" class="btn btn-dark">Ajouter au panier</a>
+            {% if (product.stock) == 0  %}
+{#               or product.product.quantity == product.stock  ou la quantité dans le panier a été a son max#}
+                <span class="btn btn-danger btn-lg ">Victime de son succès</span><br/>
+                <small>Le produit sera bientot de retour en stock</small>
+            {% else %}
+                <a href="{{ path('add_to_cart', { 'id' : product.id }) }}" class="btn btn-dark">Ajouter au panier</a>
+            {% endif %}
         </div>
     </div>
     <hr>

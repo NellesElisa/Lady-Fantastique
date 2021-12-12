@@ -39,6 +39,7 @@ class Cart
     {
         return $this->session->remove('cart');
     }
+
     public function delete($id)
     {
         $cart=$this->session->get('cart',[]);
@@ -65,14 +66,13 @@ public function getFull()
     $cartComplete = [];
 
     if ($this->get()){
-        foreach($this->get()as $id => $quantity) {    
+        foreach($this->get() as $id => $quantity) {
             $product_object = $this->entityManager->getRepository(Product::class)->findOneById($id);
 
             if(!$product_object){
                 $this->delete($id);
                 continue;
             }
-
 
             $cartComplete[] = [
                 'product' => $product_object,
@@ -81,6 +81,19 @@ public function getFull()
         }
     }
     return $cartComplete;
+}
+
+
+public function Stock(){
+    $cartStock = [];
+    if ($this->get()) {
+        foreach ($this->get() as $id => $quantity) {
+            $product_stock = $this->entityManager->getRepository(Product::class)->findOneById($id)->getStock();
+            $cartStock[] = ['stock' => $product_stock - $quantity];
+            $this->entityManager->flush();
+        }
+    }
+    return $cartStock;
 }
 
 }

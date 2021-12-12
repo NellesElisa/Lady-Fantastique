@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Classe\Cart;
 use App\Repository\ProductRepository;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -175,4 +176,6 @@ class Product
 
         return $this;
     }
+
 }
+

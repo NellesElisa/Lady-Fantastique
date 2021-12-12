@@ -25,7 +25,10 @@ class CartController extends AbstractController
     {
         return $this->render('cart/index.html.twig',[
             'cart' => $cart->getFull(),
+            'stock' =>$cart->Stock(),
         ]);
+
+
     }
 
      /**
@@ -35,7 +38,6 @@ class CartController extends AbstractController
     {
 
         $cart->add($id);
-
         return $this->redirectToRoute('cart');
     }
 
@@ -64,6 +66,5 @@ class CartController extends AbstractController
         $cart->decrease($id);
         return $this->redirectToRoute('cart');
     }
-
 
 }
