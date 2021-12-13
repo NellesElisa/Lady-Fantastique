@@ -61,35 +61,54 @@ class Cart
        return $this->session->set('cart',$cart);
    }
 
-public function getFull()
- {
-    $cartComplete = [];
+    public function getFull()
+    {
+        $cartComplete = [];
 
-    if ($this->get()){
-        foreach($this->get() as $id => $quantity) {
-            $product_object = $this->entityManager->getRepository(Product::class)->findOneById($id);
+        if ($this->get()) {
+            foreach ($this->get() as $id => $quantity) {
+                $product_object = $this->entityManager->getRepository(Product::class)->findOneById($id);
 
-            if(!$product_object){
-                $this->delete($id);
-                continue;
+                if (!$product_object) {
+                    $this->delete($id);
+                    continue;
+                }
+
+                $cartComplete[] = [
+                    'product' => $product_object,
+                    'quantity' => $quantity
+                ];
+
             }
-
-            $cartComplete[] = [
-                'product' => $product_object,
-                'quantity' => $quantity
-            ];
         }
+        return $cartComplete;
     }
-    return $cartComplete;
-}
+
+////mes problemes
+
+    public function Quantity(){
+        $cartQuantity = [];
+        foreach ($this->get() as $id => $quantity) {
+            $product_stock = $this->entityManager->getRepository(Product::class)->findOneById($id)->getStock();
+
+                $cartQuantity[] = [
+                    'quantity' => $quantity,
+                    'vrai_stock' => $product_stock
+                ];
+            }
+//        dd($cartQuantity);
+        return $cartQuantity;
+    }
 
 
-public function Stock(){
+    public function Stock(){
     $cartStock = [];
     if ($this->get()) {
         foreach ($this->get() as $id => $quantity) {
             $product_stock = $this->entityManager->getRepository(Product::class)->findOneById($id)->getStock();
-            $cartStock[] = ['stock' => $product_stock - $quantity];
+            $cartStock[] = [
+                'stock_temp' =>$product_stock - $quantity
+            ];
             $this->entityManager->flush();
         }
     }

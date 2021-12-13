@@ -50,7 +50,7 @@ class ProductController extends AbstractController
     /**
     * @Route("/produit/{slug}", name="product")
     */
-   public function show($slug)
+   public function show(Cart $cart,$slug)
    {
        $product = $this->entityManager->getRepository(Product::class)->findOneBy(array('slug' => $slug));
        $products = $this->entityManager->getRepository(Product::class)->findByIsBest(1);
@@ -63,43 +63,9 @@ class ProductController extends AbstractController
            'product' => $product,
            'slug'=> $slug,
            'products'=>$products,
+           'quantityCart'=>$cart->Quantity(),
+           'stockCart'=>$cart->Stock(),
        ]);
    }
-
-
-    /**
-     * @Route("/produit/{slug}/rupture", name="rupture")
-     */
-   public function stock($slug){
-       $product = $this->entityManager->getRepository(Product::class)->findOneBy(array('slug' => $slug));
-       $products =$this->entityManager->getRepository(Product::class)->findByIsBest(1);
-
-       return $this->render('product/rupture.html.twig',[
-           'product' => $product,
-           'slug'=> $slug,
-           'products'=>$products,
-       ]);
-
-   }
-
-
-//    /**
-//     * @Route("/produit/{slug}/supprimer-un-produit", name="product_delete")
-//     */
-//    public function delete($slug)
-//    {
-//        // je voudrai qu'elle supprime un produit du stock lorsqu'il est ajoute au panier
-//        $product = $this->entityManager->getRepository(Product::class)->findOneBy(array('slug' => $slug));
-//
-//        if ($product && $product->getStock() ) {
-//            $this->entityManager->remove($product);
-//            $this->entityManager->flush();
-//        }
-//
-//        return $this->redirectToRoute('products');
-//
-//    }
-
-
 
 }

@@ -39,7 +39,6 @@
                             <i class="bi bi-dash-circle"></i>
                         </a>
                         {{ product.quantity}}
-
                         {% if (product.product.stock - product.quantity) == 0 %}
                                 <i class="bi bi-plus-circle text-muted"></i>
                         {% else %}

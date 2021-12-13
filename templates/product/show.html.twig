@@ -22,8 +22,9 @@
             <hr>
             <p class="product-description">{{product.description}}</p>
             <hr>
-            {% if (product.stock) == 0  %}
-{#               or product.product.quantity == product.stock  ou la quantité dans le panier a été a son max#}
+            {{ dump(quantityCart , stockCart) }}
+            {% if (product.stock) == 0 %}
+{#                or quantityCart.id - stock  == product.stock  #}
                 <span class="btn btn-danger btn-lg ">Victime de son succès</span><br/>
                 <small>Le produit sera bientot de retour en stock</small>
             {% else %}
