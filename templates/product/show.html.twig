@@ -1,7 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{product.name}}
-    - Nos produits{% endblock %}
+{% block title %}{{product.name}} - Nos produits{% endblock %}
 
 {% block content %}
     <div class="border border-dark rounded py-3">
@@ -11,31 +10,53 @@
             </div>
     </div>
 
+{#    presentation d'un seul produit#}
     <div class="row">
-        <div class="col-md-5">
+        <div class="col-md-5 mt-3">
             <img src="/uploads/{{ product.illustration }}"  alt="{{ product.name }}" class="img-fluid">
         </div>
         <div class="row-md-7 my-auto mx-auto">
-            <h3 class="text-uppercase">{{ product.name }}</h3>
+            <h3 class="text-uppercase mb-0">{{ product.name }}</h3>
             <p>{{ product.subtitle }}</p>
-            <span class="product--price-page">{{ (product.price / 100) | number_format(2, ',' , '.') }} €</span>
+            <span class="product-price-page">{{ (product.price / 100) | number_format(2, ',' , '.') }} €</span>
             <hr>
             <p class="product-description">{{product.description}}</p>
             <hr>
-            {{ dump(quantityCart , stockCart) }}
-            {% if (product.stock) == 0 %}
-{#                or quantityCart.id - stock  == product.stock  #}
-                <span class="btn btn-danger btn-lg ">Victime de son succès</span><br/>
-                <small>Le produit sera bientot de retour en stock</small>
-            {% else %}
-                <a href="{{ path('add_to_cart', { 'id' : product.id }) }}" class="btn btn-dark">Ajouter au panier</a>
-            {% endif %}
+
+
+
+{# creation d'un stock virtuel si article ajoute au panier#}
+            {% for product in cart %}
+                {% set stock_virtuel = product.product.stock - product.quantity  %}
+                {% if ( stock_virtuel  ==  0 ) %}
+                     {{ dump(product.product.name) }}
+                    <span class="btn btn-danger btn-lg">Victime de son succès</span><br/>
+                    <small>Le produit sera bientot de retour en stock</small>
+                {% else %}
+            {{ dump(product.product.name) }}
+                    <a href="{{ path('add_to_cart', { 'id' : product.product.id }) }}" class="btn btn-dark">Ajouter au panier</a>
+                    <br/>
+                    <br/>
+
+                {% endif %}
+            {% endfor %}
+            <hr>
+
+
+{# disponibilite de l'article dans le stock réel et/ou creation d'un stock virtuel si article ajoute au panier#}
+                {% if (product.stock == 0) %}
+                    <span class="btn btn-danger btn-lg">Victime de son succès</span><br/>
+                    <small>Le produit sera bientot de retour en stock</small>
+                {% else %}
+                    <a href="{{ path('add_to_cart', { 'id' : product.id }) }}" class="btn btn-dark">Ajouter au panier</a>
+                {% endif %}
         </div>
     </div>
     <hr>
     <hr>
     <h3 class="text-center">Nos meilleures ventes</h3>
     <p class="text-center">Découvrer les articles les plus vendus</p>
+{#    affichage des articles selectionner par isbest#}
     <div class="row">
         {% for product in products %}
             <div class="col-md-3">

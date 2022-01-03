@@ -1,8 +1,19 @@
-
+{#affichage des produits #}
 <div class="product-item text-left">
-    <a href="{{path('product', { 'slug' : product.slug } )}}">
-        <img src="/uploads/{{ product.illustration }}" alt="{{ product.name }}" class="img-fluid">
-    </a>
+{#    si le produit n'est plus en stock, l'image devient grise sinon elle se recolore#}
+    {% if  (product.stock  ==  0) %}
+        <div class="image-zoom filter">
+            <a href="{{path('product', { 'slug' : product.slug } )}}">
+                <img src="/uploads/{{ product.illustration }}"  alt="{{ product.name }}" class="cat img-fluid filter">
+            </a>
+        </div>
+    {% else %}
+            <div class="image-zoom">
+                <a href="{{path('product', { 'slug' : product.slug } )}}">
+                    <img src="/uploads/{{ product.illustration }}"  alt="{{ product.name }}" class="cat img-fluid">
+                </a>
+            </div>
+        {% endif %}
     <h5>{{ product.name }}</h5>
     <span class="product-subtitle">{{ product.subtitle }}</span>
     <span class="product-price">{{ (product.price / 100) | number_format(2, ',' , '.') }} €</span>

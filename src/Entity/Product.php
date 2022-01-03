@@ -60,9 +60,10 @@ class Product
     private $isBest;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      */
     private $stock;
+
 
     public function getId(): ?int
     {
@@ -176,6 +177,9 @@ class Product
 
         return $this;
     }
+
+
+
 
 }
 

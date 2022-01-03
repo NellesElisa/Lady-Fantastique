@@ -27,7 +27,7 @@ class ProductController extends AbstractController
     /**
      * @Route("/nos-produits", name="products")
      */
-    public function index(Request $request): Response
+    public function index(Request $request,Cart $cart): Response
     {
         $products = $this->entityManager->getRepository(Product::class)->findAll();
 
@@ -43,6 +43,7 @@ class ProductController extends AbstractController
         return $this->render('product/index.html.twig',[
             'products' => $products,
             'form' => $form->createView(),
+            'cart' => $cart->getFull(),
         ]);
     }
 
@@ -50,21 +51,30 @@ class ProductController extends AbstractController
     /**
     * @Route("/produit/{slug}", name="product")
     */
-   public function show(Cart $cart,$slug)
+   public function show($slug, Cart $cart)
    {
        $product = $this->entityManager->getRepository(Product::class)->findOneBy(array('slug' => $slug));
        $products = $this->entityManager->getRepository(Product::class)->findByIsBest(1);
+       $allProducts = $this->entityManager->getRepository(Product::class)->findAll();
 
        if (!$product) {
            return $this->redirectToRoute('products');
        }
 
+//       calcul du stock total de produit
+//       $stocktotal = 0;
+//       for ($i = 0; $i < count($allProducts); $i++) {
+//           $stocktotal = $stocktotal + $allProducts[$i]->getStock();
+//       }
+
+
        return $this->render('product/show.html.twig',[
            'product' => $product,
            'slug'=> $slug,
            'products'=>$products,
-           'quantityCart'=>$cart->Quantity(),
-           'stockCart'=>$cart->Stock(),
+           'virtuel'=>$cart->stockVirtuel(),
+//           'stockTotal' => $stocktotal,
+           'cart' => $cart->getFull(),
        ]);
    }
 

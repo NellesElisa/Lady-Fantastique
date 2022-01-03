@@ -40,20 +40,6 @@ header{
 
 /*section categories*/
 
-.image-zoom {
-    box-shadow: 2px 2px 20px rgba(0, 0, 0, .6);
-    overflow: hidden;
-    cursor: pointer;
-}
-
-.cat{
-    transition: transform .5s;
-}
-
-.cat:hover {
-    transform: scale(1.3);
-}
-
 .labelname{
     padding-top: 3em;
 }
@@ -128,6 +114,23 @@ hr{
 }
 
 /*produit*/
+
+.image-zoom {
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.filter{
+    filter: brightness(0.7);
+}
+
+.cat{
+    transition: transform .5s;
+}
+
+.cat:hover {
+    transform: scale(1.1);
+}
 
 .product-description{
     white-space: pre;

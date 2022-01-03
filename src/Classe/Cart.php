@@ -10,14 +10,14 @@ class Cart
     private $session;
     private $entityManager;
 
-     public function __construct(EntityManagerInterface $entityManager, SessionInterface $session)
-     {
-         $this->session = $session;
-         $this->entityManager = $entityManager;
-     }
-    
+    public function __construct(EntityManagerInterface $entityManager, SessionInterface $session)
+    {
+        $this->session = $session;
+        $this->entityManager = $entityManager;
+    }
 
-   public function add($id)
+
+    public function add($id)
     {
         $cart=$this->session->get('cart');
 
@@ -45,21 +45,21 @@ class Cart
         $cart=$this->session->get('cart',[]);
         unset($cart[$id]);
 
-         return $this->session->set('cart',$cart);
+        return $this->session->set('cart',$cart);
     }
 
-   public function decrease($id)
-   {
-       $cart=$this->session->get('cart');
+    public function decrease($id)
+    {
+        $cart=$this->session->get('cart');
 
-       if ($cart[$id]>1){
-           $cart[$id]--;
-       }else{
-        unset($cart[$id]);
-       }
+        if ($cart[$id]>1){
+            $cart[$id]--;
+        }else{
+            unset($cart[$id]);
+        }
 
-       return $this->session->set('cart',$cart);
-   }
+        return $this->session->set('cart',$cart);
+    }
 
     public function getFull()
     {
@@ -86,33 +86,16 @@ class Cart
 
 ////mes problemes
 
-    public function Quantity(){
-        $cartQuantity = [];
-        foreach ($this->get() as $id => $quantity) {
-            $product_stock = $this->entityManager->getRepository(Product::class)->findOneById($id)->getStock();
-
-                $cartQuantity[] = [
-                    'quantity' => $quantity,
-                    'vrai_stock' => $product_stock
-                ];
+//      calcul d'un stock virtuel
+ public function stockVirtuel()
+    {
+        if ($this->get()) {
+            foreach ($this->get() as $id => $quantity) {
+                $product_stock = $this->entityManager->getRepository(Product::class)->findOneById($id)->getStock();
+                $stockVirtuel[$id] = $product_stock - $quantity;
             }
-//        dd($cartQuantity);
-        return $cartQuantity;
-    }
-
-
-    public function Stock(){
-    $cartStock = [];
-    if ($this->get()) {
-        foreach ($this->get() as $id => $quantity) {
-            $product_stock = $this->entityManager->getRepository(Product::class)->findOneById($id)->getStock();
-            $cartStock[] = [
-                'stock_temp' =>$product_stock - $quantity
-            ];
-            $this->entityManager->flush();
+            return $stockVirtuel;
         }
     }
-    return $cartStock;
-}
 
 }

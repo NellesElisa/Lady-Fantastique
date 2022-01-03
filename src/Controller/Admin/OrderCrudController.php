@@ -4,56 +4,64 @@ namespace App\Controller\Admin;
 
 use App\Entity\Order;
 use Doctrine\ORM\EntityManagerInterface;
-use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
-use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
-use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
+use EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext;
+use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ArrayField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\MoneyField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
-use EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext;
+use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\MoneyField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
-use EasyCorp\Bundle\EasyAdminBundle\Router\CrudUrlGenerator;
-use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
 
 class OrderCrudController extends AbstractCrudController
 {
     private $entityManager;
     private $crudUrlGenerator;
 
-    public function __construct(EntityManagerInterface $entityManager, CrudUrlGenerator $crudUrlGenerator)
+    // le crudUrlGenerator devient AdminUrlGenerator
+    public function __construct(EntityManagerInterface $entityManager, AdminUrlGenerator $crudUrlGenerator)
     {
-      $this->entityManager = $entityManager;
-      $this->crudUrlGenerator = $crudUrlGenerator;
+        $this->entityManager = $entityManager;
+        $this->crudUrlGenerator = $crudUrlGenerator;
     }
-    
+
     public static function getEntityFqcn(): string
     {
         return Order::class;
     }
 
+
     public function configureActions(Actions $actions): Actions
     {
-        $updatePreparation = Action::new('updatePreparation', 'Préparation en cours','fas fa-box-open')->linkToCrudAction('updatePreparation');
-        $updateDelivery = Action::new('updateDelivery', 'Livraison en cours','fas fa-truck')->linkToCrudAction('updateDelivery');
-        
+        $updatePreparation = Action::new('updatePreparation', 'Préparation en cours', 'fas fa-box-open')
+            ->linkToCrudAction('updatePreparation');
+
+        $updateDelivery = Action::new('updateDelivery', 'Livraison en cours', 'fas fa-truck')
+            ->linkToCrudAction('updateDelivery');
+
         return $actions
-        ->add('detail',$updateDelivery)
-        ->add('detail',$updatePreparation)
-        ->add('index', 'detail');
+            ->add('detail', $updateDelivery)
+            ->add('detail', $updatePreparation)
+            ->add('index', 'detail');
     }
 
-    public function updateDelivery(AdminContext $context)
+    // creation d'une fonction qui gere la preparation de la commande
+    // le crudUrlGenerator devient AdminUrlGenerator
+    public function updatePreparation(AdminContext $context)
     {
         $order = $context->getEntity()->getInstance();
-        $order->setState(3);
+        $order->setState(2);
         $this->entityManager->flush();
 
-        $this->addFlash('notice' ,"<span style='color:green'><strong>La commande ".$order->getReference()."<u> est bien en cours de livraison</u> </strong></span>");
+        $this->addFlash('notice', "<span style='color:red'><strong>La commande " .
+            $order->getReference() . "<u> est bien en cours de préparation</u> </strong></span>");
 
-        $url = $this->crudUrlGenerator->build()
+        $url = $this->crudUrlGenerator
             ->setController(OrderCrudController::class)
             ->setAction('index')
             ->generateUrl();
@@ -61,23 +69,25 @@ class OrderCrudController extends AbstractCrudController
         return $this->redirect($url);
     }
 
-    public function updatePreparation(AdminContext $context)
+    // creation d'une fonction qui gere la livraison de la commande
+    // le crudUrlGenerator devient AdminUrlGenerator
+    public function updateDelivery(AdminContext $context)
     {
         $order = $context->getEntity()->getInstance();
-        $order->setState(2);
+        $order->setState(3);
         $this->entityManager->flush();
 
-        $this->addFlash('notice' ,"<span style='color:orange'><strong>La commande ".$order->getReference()."<u> est bien en cours de préparation</u> </strong></span>");
+        $this->addFlash('notice', "<span style='color:green'><strong>La commande " . $order->getReference() . "<u> est bien en cours de livraison</u> </strong></span>");
 
-        $url = $this->crudUrlGenerator->build()
+        $url = $this->crudUrlGenerator
             ->setController(OrderCrudController::class)
             ->setAction('index')
             ->generateUrl();
 
-            return $this->redirect($url);
+        return $this->redirect($url);
     }
 
-    public function configureCrud(Crud $crud):Crud
+    public function configureCrud(Crud $crud): Crud
     {
         return $crud->setDefaultSort(['id' => 'DESC']);
     }
@@ -93,13 +103,13 @@ class OrderCrudController extends AbstractCrudController
             TextField::new('carrierName', 'transporteur'),
             MoneyField::new('carrierPrice', 'Frais de port')->setCurrency('EUR'),
             ChoiceField::new('state')->setChoices([
-                'Non payée' => 0 ,
-                'Payée'=> 1 ,
-                'Preparation en cours' => 2 ,
-                'Livraison en cours'=> 3 ,
+                'Non payée' => 0,
+                'Payée' => 1,
+                'Preparation en cours' => 2,
+                'Livraison en cours' => 3,
             ]),
             ArrayField::new('orderDetails', 'Produits achetés')->hideOnIndex(),
-            
+
         ];
     }
 

@@ -49,12 +49,11 @@ class ResetPasswordController extends AbstractController
                 'token'=> $reset_password->getToken()
                 ]);
 
-            $content ="Bonjour". $user->getFirstname()."<br/> Vous avez demandé à reinitialiser votre mot de passe <br>";
-            $content .= "merci de bien vouloir cliquer sur le lien suivant pour mettre a jour <a href='".$url."'> votre mot de passe</a>";
+            $content ="Bonjour ". $user->getFirstname()."<br/> Vous avez demandé à reinitialiser votre mot de passe <br>";
+            $content .= "merci de bien vouloir cliquer sur le lien suivant pour mettre a jour <a href='.$url.'> votre mot de passe</a>";
 
             $mail = new Mail();
             $mail->send($user->getEmail(),$user->getFirstname(). ' ' .$user->getLastname(),'Reinitialiser votre mot de passe',$content);
-
             $this->addFlash('notice', 'Vous allez recevoir un mail pour reinitialiser votre mot de passe');
 
         }else{
@@ -97,20 +96,13 @@ class ResetPasswordController extends AbstractController
            $reset_password->getUser()->setPassword($password);
         // flush
            $this->entityManager->flush();
-        //redicrection de l'utilisateur 
+        //redirection de l'utilisateur
          $this->addFlash('notice', 'Votre mot de passe à bien été mis à jour ');
          return $this->redirectToRoute('app_login');
-        
-
         }
-
-
 
         return $this->render('reset_password/update.html.twig', [
            'form'=>$form->createView()
         ]);
-        
-        
-        dd($reset_password);
     }
 }

@@ -37,6 +37,7 @@ class StripeController extends AbstractController
 
         foreach ($order->getOrderDetails()->getValues() as $product) {
 
+//            $product_object = $entityManager->getRepository(Product::class)->findOneByName($product->getProduct());
 
             $products_for_stripe[] = [
 
@@ -45,7 +46,7 @@ class StripeController extends AbstractController
                     'unit_amount' => $product->getPrice(),
                     'product_data' => [
                         'name' => $product->getProduct(),
-                        'images' => [$YOUR_DOMAIN],
+//                        'images' => [$YOUR_DOMAIN."/uploads/".$product_object->getIllustration()],
                     ],
                 ],
                 'quantity' => $product->getQuantity(),
