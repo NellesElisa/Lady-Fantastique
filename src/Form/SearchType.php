@@ -14,6 +14,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Validator\Constraints\Choice;
 
+// bouton poussoir sur la page d'accueil pour rechercher les cat
 class SearchType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void

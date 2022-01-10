@@ -38,6 +38,10 @@ class OrderSuccessController extends AbstractController
             $cart->remove();
 
             //supprimer les produits du stock
+            $cart->stockVirtuel();
+            $this->entityManager->persist($cart);
+            $this->entityManager->flush();
+
 
             //modifier le statut isPaid de notre commande
             $order->setState(1);

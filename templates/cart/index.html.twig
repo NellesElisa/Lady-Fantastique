@@ -29,7 +29,12 @@
             {% for product in cart %}
                 <tr>
                     <td class="text-right col-3">
-                        <img class="size" src="/uploads/{{ product.product.illustration }}" alt="{{ product.product.name }}"><br>
+{#                        pour aller sur la page du produit#}
+                        <a href="{{path('product', { 'slug' : product.product.slug } )}}">
+                        <img class="size" src="/uploads/{{ product.product.illustration }}" alt="{{ product.product.name }}">
+                        </a>
+                        <br>
+
                     </td>
 
                     <td class="col-3">

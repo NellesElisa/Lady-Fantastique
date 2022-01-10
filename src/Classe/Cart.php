@@ -84,18 +84,19 @@ class Cart
         return $cartComplete;
     }
 
-////mes problemes
+////mon probleme
 
-//      calcul d'un stock virtuel
- public function stockVirtuel()
-    {
+//      calcul d'un stock virtuel a enlever du stock reel lorsque l'achat est realise.
+ public function stockVirtuel(){
+
+        $stockVirtuel = [];
+
         if ($this->get()) {
             foreach ($this->get() as $id => $quantity) {
                 $product_stock = $this->entityManager->getRepository(Product::class)->findOneById($id)->getStock();
                 $stockVirtuel[$id] = $product_stock - $quantity;
             }
-            return $stockVirtuel;
         }
+        return $stockVirtuel;
     }
-
 }

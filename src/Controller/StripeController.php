@@ -46,6 +46,7 @@ class StripeController extends AbstractController
                     'unit_amount' => $product->getPrice(),
                     'product_data' => [
                         'name' => $product->getProduct(),
+                        //les images ne sont pas supportée par la redirection de la page stripe
 //                        'images' => [$YOUR_DOMAIN."/uploads/".$product_object->getIllustration()],
                     ],
                 ],
