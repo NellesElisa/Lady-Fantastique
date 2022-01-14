@@ -84,8 +84,6 @@ class Cart
         return $cartComplete;
     }
 
-////mon probleme
-
 //      calcul d'un stock virtuel a enlever du stock reel lorsque l'achat est realise.
  public function stockVirtuel(){
 

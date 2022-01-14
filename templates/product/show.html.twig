@@ -23,25 +23,22 @@
             <p class="product-description">{{product.description}}</p>
             <hr>
 
-
-
 {# creation d'un stock virtuel si article ajoute au panier#}
-            {% for product in cart %}
-                {% set stock_virtuel = product.product.stock - product.quantity  %}
-                {% if ( stock_virtuel  ==  0 ) %}
-                     {{ dump(product.product.name) }}
-                    <span class="btn btn-danger btn-lg">Victime de son succès</span><br/>
-                    <small>Le produit sera bientot de retour en stock</small>
-                {% else %}
-            {{ dump(product.product.name) }}
-                    <a href="{{ path('add_to_cart', { 'id' : product.product.id }) }}" class="btn btn-dark">Ajouter au panier</a>
-                    <br/>
-                    <br/>
-
-                {% endif %}
-            {% endfor %}
-            <hr>
-
+{#            {% for product in cart %}#}
+{#                {% set stock_virtuel = product.product.stock - product.quantity  %}#}
+{#                {{ dump(stock_virtuel) }}#}
+{#                {% if ( stock_virtuel  ==  0 ) %}#}
+{#                     {{ dump(product.product.name) }}#}
+{#                    <span class="btn btn-danger btn-lg">Victime de son succès</span><br/>#}
+{#                    <small>Le produit sera bientot de retour en stock</small>#}
+{#                {% else %}#}
+{#            {{ dump(product.product.name) }}#}
+{#                    <a href="{{ path('add_to_cart', { 'id' : product.product.id }) }}" class="btn btn-dark">Ajouter au panier</a>#}
+{#                    <br/>#}
+{#                    <br/>#}
+{#                {% endif %}#}
+{#            {% endfor %}#}
+{#            <hr>#}
 
 {# disponibilite de l'article dans le stock réel et/ou creation d'un stock virtuel si article ajoute au panier#}
                 {% if (product.stock == 0) %}
